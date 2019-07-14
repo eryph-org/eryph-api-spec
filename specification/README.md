@@ -24,7 +24,7 @@ To see additional help and options, run:
 These are the global settings for the Haipa API.
 
 ``` yaml
-title: HaipaClient
+title: HaipaCompute
 tag: v1
 ```
 
@@ -34,6 +34,6 @@ These settings apply only when `--tag=v1` is specified on the command line.
 
 ``` yaml $(tag) == 'v1'
 input-file:
-- v1/haipa.json
+- v1/swagger.json
 ```
 
