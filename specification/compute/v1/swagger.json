@@ -1,0 +1,1209 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Haipa API",
+    "description": "Haipa management API",
+    "contact": {
+      "name": "dbosoft",
+      "email": "support@dbosoft.eu"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "1.0"
+  },
+  "host": "localhost:62189",
+  "basePath": "/api",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/odata/v1/Machines": {
+      "get": {
+        "tags": [
+          "Machines"
+        ],
+        "operationId": "Machines_List",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$select",
+            "description": "Limits the properties returned in the result.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$filter",
+            "description": "Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "description": "Specifies the order in which items are returned. The maximum number of expressions is 5.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "description": "Limits the number of items returned from a collection.",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "description": "Excludes the specified number of items of the queried collection from the result.",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "description": "Indicates whether the total count of items within a collection are returned in the result.",
+            "type": "boolean",
+            "default": "False"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MachineList"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Void"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Machines"
+        ],
+        "operationId": "Machines_UpdateOrCreate",
+        "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/xml",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MachineConfig"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            }
+          }
+        }
+      }
+    },
+    "/odata/v1/Machines/{key}": {
+      "get": {
+        "tags": [
+          "Machines"
+        ],
+        "operationId": "Machines_Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "description": "Limits the properties returned in the result.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Machine"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Void"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Machines"
+        ],
+        "operationId": "Machines_Delete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            }
+          }
+        }
+      }
+    },
+    "/odata/v1/Machines/{key}/Start": {
+      "put": {
+        "tags": [
+          "Machines"
+        ],
+        "operationId": "Machines_Start",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            }
+          }
+        }
+      }
+    },
+    "/odata/v1/Machines/{key}/Stop": {
+      "put": {
+        "tags": [
+          "Machines"
+        ],
+        "operationId": "Machines_Stop",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            }
+          }
+        }
+      }
+    },
+    "/odata/v1/Networks": {
+      "get": {
+        "tags": [
+          "Networks"
+        ],
+        "operationId": "Networks_List",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$select",
+            "description": "Limits the properties returned in the result.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Networks"
+        ],
+        "operationId": "Networks_Create",
+        "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/xml",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Network"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/odata/v1/Networks/{key}": {
+      "get": {
+        "tags": [
+          "Networks"
+        ],
+        "operationId": "Networks_Get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "description": "Limits the properties returned in the result.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Networks"
+        ],
+        "operationId": "Networks_Patch",
+        "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/xml",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Network"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Networks"
+        ],
+        "operationId": "Networks_Update",
+        "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/xml",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Network"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/odata/v1/Operations": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "Operations_List",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$select",
+            "description": "Limits the properties returned in the result.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$filter",
+            "description": "Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "description": "Specifies the order in which items are returned. The maximum number of expressions is 5.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "description": "Limits the number of items returned from a collection.",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "description": "Excludes the specified number of items of the queried collection from the result.",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "description": "Indicates whether the total count of items within a collection are returned in the result.",
+            "type": "boolean",
+            "default": "False"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OperationList"
+            }
+          }
+        }
+      }
+    },
+    "/odata/v1/Operations/{key}": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "Operations_Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "description": "Limits the properties returned in the result.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            }
+          }
+        }
+      }
+    },
+    "/odata/v1/Operations/{key}/LogEntries": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "Operations_GetLogEntries",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "query",
+            "name": "$select",
+            "description": "Limits the properties returned in the result.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$filter",
+            "description": "Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "description": "Specifies the order in which items are returned. The maximum number of expressions is 5.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "description": "Limits the number of items returned from a collection.",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "description": "Excludes the specified number of items of the queried collection from the result.",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "description": "Indicates whether the total count of items within a collection are returned in the result.",
+            "type": "boolean",
+            "default": "False"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OperationLogEntryList"
+            }
+          }
+        }
+      }
+    },
+    "/odata/v1": {
+      "get": {
+        "tags": [
+          "Subnets"
+        ],
+        "operationId": "Subnets_List",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$select",
+            "description": "Limits the properties returned in the result.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Subnet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "networkId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "dhcpEnabled": {
+          "type": "boolean"
+        },
+        "ipVersion": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gatewayAddress": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "dnsServerAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "network": {
+          "$ref": "#/definitions/Network"
+        }
+      }
+    },
+    "Network": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "vLanId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "subnets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Subnet"
+          }
+        },
+        "agentNetworks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AgentNetwork"
+          }
+        }
+      }
+    },
+    "AgentNetwork": {
+      "type": "object",
+      "properties": {
+        "network": {
+          "$ref": "#/definitions/Network"
+        },
+        "agentName": {
+          "type": "string"
+        },
+        "networkId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "virtualSwitchName": {
+          "type": "string"
+        },
+        "agent": {
+          "$ref": "#/definitions/Agent"
+        }
+      }
+    },
+    "Agent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "networks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AgentNetwork"
+          }
+        },
+        "machines": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Machine"
+          }
+        }
+      }
+    },
+    "MachineStatus": {
+      "format": "int32",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "type": "integer"
+    },
+    "VirtualMachineNetworkAdapter": {
+      "type": "object",
+      "properties": {
+        "machineId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "switchName": {
+          "type": "string"
+        },
+        "macAddress": {
+          "type": "string"
+        },
+        "vm": {
+          "$ref": "#/definitions/VirtualMachine"
+        }
+      }
+    },
+    "VirtualMachine": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "networkAdapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VirtualMachineNetworkAdapter"
+          }
+        },
+        "machine": {
+          "$ref": "#/definitions/Machine"
+        }
+      }
+    },
+    "MachineNetwork": {
+      "type": "object",
+      "properties": {
+        "machineId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "adapterName": {
+          "type": "string"
+        },
+        "ipV4Addresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ipV6Addresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "iPv4DefaultGateway": {
+          "type": "string"
+        },
+        "iPv6DefaultGateway": {
+          "type": "string"
+        },
+        "dnsServerAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ipV4Subnets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ipV6Subnets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "machine": {
+          "$ref": "#/definitions/Machine"
+        }
+      }
+    },
+    "Machine": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "agent": {
+          "$ref": "#/definitions/Agent"
+        },
+        "agentName": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/MachineStatus"
+        },
+        "vm": {
+          "$ref": "#/definitions/VirtualMachine"
+        },
+        "networks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MachineNetwork"
+          }
+        }
+      }
+    },
+    "MachineList": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Machine"
+          }
+        }
+      }
+    },
+    "Void": {
+      "type": "object"
+    },
+    "VirtualMachineCpuConfig": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "VirtualMachineMemoryConfig": {
+      "type": "object",
+      "properties": {
+        "startup": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minimum": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maximum": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "VirtualMachineDriveType": {
+      "format": "int32",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "type": "integer"
+    },
+    "VirtualMachineDriveConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "shareSlug": {
+          "type": "string"
+        },
+        "dataStore": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "type": {
+          "$ref": "#/definitions/VirtualMachineDriveType"
+        }
+      }
+    },
+    "VirtualMachineNetworkAdapterConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "switchName": {
+          "type": "string"
+        },
+        "macAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "VirtualMachineConfig": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string"
+        },
+        "dataStore": {
+          "type": "string"
+        },
+        "cpu": {
+          "$ref": "#/definitions/VirtualMachineCpuConfig"
+        },
+        "memory": {
+          "$ref": "#/definitions/VirtualMachineMemoryConfig"
+        },
+        "drives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VirtualMachineDriveConfig"
+          }
+        },
+        "networkAdapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VirtualMachineNetworkAdapterConfig"
+          }
+        }
+      }
+    },
+    "MachineSubnetConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "MachineNetworkConfig": {
+      "type": "object",
+      "properties": {
+        "adapterName": {
+          "type": "string"
+        },
+        "subnets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MachineSubnetConfig"
+          }
+        }
+      }
+    },
+    "ProvisioningMethod": {
+      "format": "int32",
+      "enum": [
+        0,
+        1
+      ],
+      "type": "integer"
+    },
+    "VirtualMachineProvisioningConfig": {
+      "type": "object",
+      "properties": {
+        "hostname": {
+          "type": "string"
+        },
+        "userData": {
+          "type": "object"
+        },
+        "method": {
+          "$ref": "#/definitions/ProvisioningMethod"
+        }
+      }
+    },
+    "MachineConfig": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        },
+        "vm": {
+          "$ref": "#/definitions/VirtualMachineConfig"
+        },
+        "networks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MachineNetworkConfig"
+          }
+        },
+        "provisioning": {
+          "$ref": "#/definitions/VirtualMachineProvisioningConfig"
+        }
+      }
+    },
+    "OperationTaskStatus": {
+      "format": "int32",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "type": "integer"
+    },
+    "OperationTask": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/OperationTaskStatus"
+        },
+        "agentName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "operation": {
+          "$ref": "#/definitions/Operation"
+        }
+      }
+    },
+    "OperationLogEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "task": {
+          "$ref": "#/definitions/OperationTask"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "operation": {
+          "$ref": "#/definitions/Operation"
+        }
+      }
+    },
+    "OperationStatus": {
+      "format": "int32",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "type": "integer"
+    },
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "logEntries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OperationLogEntry"
+          }
+        },
+        "machineGuid": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/OperationStatus"
+        },
+        "statusMessage": {
+          "type": "string"
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OperationTask"
+          }
+        }
+      }
+    },
+    "OperationList": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Operation"
+          }
+        }
+      }
+    },
+    "OperationLogEntryList": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OperationLogEntry"
+          }
+        }
+      }
+    }
+  }
+}

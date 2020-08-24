@@ -1,8 +1,8 @@
-# Haipa API Spec
+# Haipa Compute API Spec
     
 > see https://aka.ms/autorest
 
-This is the AutoRest configuration file for the Haipa Api.
+This is the AutoRest configuration file for the Haipa Compute Api.
 
 
 ---
@@ -21,7 +21,7 @@ To see additional help and options, run:
 
 
 ### Basic Information 
-These are the global settings for the Haipa API.
+These are the global settings for the Haipa Compute API.
 
 ``` yaml
 title: HaipaCompute

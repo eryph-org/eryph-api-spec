@@ -25,4 +25,4 @@ The structure should appear like so:
 \--- readme.md
 ```
 
-Currently, the specifications are expected to be in Swagger JSON format
+Currently, the specifications are expected to be in Swagger JSON format (OpenAPI V2).
