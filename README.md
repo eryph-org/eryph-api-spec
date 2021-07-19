@@ -1,8 +1,8 @@
-# Haipa API Specifications
+# Eryph API Specifications
 
 ## Description
 
-This repository is the canonical source for REST API specifications for Haipa.
+This repository is the canonical source for REST API specifications for eryph.
 
 ## Directory Structure
 

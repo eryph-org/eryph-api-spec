@@ -19,104 +19,24 @@
     "https"
   ],
   "paths": {
-    "/odata/v1/Clients": {
-      "get": {
-        "tags": [
-          "Clients"
-        ],
-        "summary": "Queries for Clients.",
-        "operationId": "Clients_List",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "$select",
-            "description": "Limits the properties returned in the result.",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "$expand",
-            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "$filter",
-            "description": "Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "$orderby",
-            "description": "Specifies the order in which items are returned. The maximum number of expressions is 5.",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "$top",
-            "description": "Limits the number of items returned from a collection.",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "$skip",
-            "description": "Excludes the specified number of items of the queried collection from the result.",
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "in": "query",
-            "name": "$count",
-            "description": "Indicates whether the total count of items within a collection are returned in the result.",
-            "type": "boolean",
-            "default": "False"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ClientList"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
-            }
-          }
-        },
-        "x-ms-odata": "#/definitions/Client"
-      },
+    "/v1/clients": {
       "post": {
         "tags": [
           "Clients"
         ],
+        "summary": "Creates a new client",
+        "description": "Creates a client",
         "operationId": "Clients_Create",
         "consumes": [
-          "application/json;odata.metadata=minimal;odata.streaming=true",
-          "application/json;odata.metadata=minimal;odata.streaming=false",
-          "application/json;odata.metadata=minimal",
-          "application/json;odata.metadata=full;odata.streaming=true",
-          "application/json;odata.metadata=full;odata.streaming=false",
-          "application/json;odata.metadata=full",
-          "application/json;odata.metadata=none;odata.streaming=true",
-          "application/json;odata.metadata=none;odata.streaming=false",
-          "application/json;odata.metadata=none",
-          "application/json;odata.streaming=true",
-          "application/json;odata.streaming=false",
-          "application/json",
-          "application/xml",
           "application/json-patch+json",
+          "application/json",
           "text/json",
           "application/*+json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -142,18 +62,91 @@
           }
         }
       },
-      "put": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "operationId": "Clients_List",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ClientList"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "schema": {
+              "$ref": "#/definitions/ApiError"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/v1/clients/{id}": {
+      "delete": {
         "tags": [
           "Clients"
         ],
-        "operationId": "Clients_NewKey",
+        "summary": "Deletes a client",
+        "description": "Deletes a client",
+        "operationId": "Clients_Delete",
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
-            "in": "query",
-            "name": "clientId",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "schema": {
+              "$ref": "#/definitions/ApiError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Get a client",
+        "description": "Get a client",
+        "operationId": "Clients_Get",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
             "type": "string"
           }
         ],
@@ -161,7 +154,67 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ClientWithSecrets"
+              "$ref": "#/definitions/Client"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "schema": {
+              "$ref": "#/definitions/ApiError"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Updates a client",
+        "description": "Updates a client",
+        "operationId": "Clients_Update",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
             }
           },
           "default": {
@@ -173,183 +226,38 @@
         }
       }
     },
-    "/odata/v1/Clients/{key}": {
-      "get": {
+    "/v1/clients/{id}/newkey": {
+      "post": {
         "tags": [
           "Clients"
         ],
-        "operationId": "Clients_Get",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "key",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "$select",
-            "description": "Limits the properties returned in the result.",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "$expand",
-            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/Client"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Clients"
-        ],
-        "operationId": "Clients_Delete",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "key",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/Void"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Clients"
-        ],
+        "summary": "Updates a client",
+        "description": "Updates a client",
         "operationId": "Clients_Update",
-        "consumes": [
-          "application/json;odata.metadata=minimal;odata.streaming=true",
-          "application/json;odata.metadata=minimal;odata.streaming=false",
-          "application/json;odata.metadata=minimal",
-          "application/json;odata.metadata=full;odata.streaming=true",
-          "application/json;odata.metadata=full;odata.streaming=false",
-          "application/json;odata.metadata=full",
-          "application/json;odata.metadata=none;odata.streaming=true",
-          "application/json;odata.metadata=none;odata.streaming=false",
-          "application/json;odata.metadata=none",
-          "application/json;odata.streaming=true",
-          "application/json;odata.streaming=false",
-          "application/json",
-          "application/xml",
-          "application/json-patch+json",
-          "text/json",
-          "application/*+json"
-        ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
             "in": "path",
-            "name": "key",
+            "name": "id",
             "required": true,
             "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/Client"
-            }
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Client"
+              "$ref": "#/definitions/ClientWithSecrets"
             }
           },
-          "default": {
-            "description": "Error response describing why the operation failed",
+          "404": {
+            "description": "Not Found",
             "schema": {
-              "$ref": "#/definitions/ApiError"
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Clients"
-        ],
-        "operationId": "Clients_Change",
-        "consumes": [
-          "application/json;odata.metadata=minimal;odata.streaming=true",
-          "application/json;odata.metadata=minimal;odata.streaming=false",
-          "application/json;odata.metadata=minimal",
-          "application/json;odata.metadata=full;odata.streaming=true",
-          "application/json;odata.metadata=full;odata.streaming=false",
-          "application/json;odata.metadata=full",
-          "application/json;odata.metadata=none;odata.streaming=true",
-          "application/json;odata.metadata=none;odata.streaming=false",
-          "application/json;odata.metadata=none",
-          "application/json;odata.streaming=true",
-          "application/json;odata.streaming=false",
-          "application/json",
-          "application/xml",
-          "application/json-patch+json",
-          "text/json",
-          "application/*+json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "key",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/Client"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/Client"
+              "$ref": "#/definitions/ProblemDetails"
             }
           },
           "default": {
@@ -363,43 +271,14 @@
     }
   },
   "definitions": {
-    "Client": {
+    "ApiError": {
       "type": "object",
       "properties": {
-        "id": {
-          "description": "Unique identifier for a haipa client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
-          "maxLength": 40,
-          "type": "string"
-        },
-        "name": {
-          "description": "human readable name of client, for example email address of owner",
-          "maxLength": 254,
-          "type": "string"
-        },
-        "description": {
-          "description": "optional description of client",
-          "maxLength": 200,
-          "type": "string"
-        },
-        "allowedScopes": {
-          "description": "allowed scopes of client",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "error": {
+          "$ref": "#/definitions/ApiErrorData"
         }
-      }
-    },
-    "ClientList": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Client"
-          }
-        }
-      }
+      },
+      "x-ms-external": true
     },
     "ApiErrorBody": {
       "required": [
@@ -418,11 +297,6 @@
           "type": "string"
         }
       },
-      "additionalProperties": { },
-      "x-ms-external": true
-    },
-    "InnerErrorData": {
-      "type": "object",
       "additionalProperties": { },
       "x-ms-external": true
     },
@@ -455,14 +329,49 @@
       "additionalProperties": { },
       "x-ms-external": true
     },
-    "ApiError": {
+    "Client": {
       "type": "object",
       "properties": {
-        "error": {
-          "$ref": "#/definitions/ApiErrorData"
+        "id": {
+          "description": "Unique identifier for a haipa client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
+          "maxLength": 40,
+          "type": "string"
+        },
+        "name": {
+          "description": "human readable name of client, for example email address of owner",
+          "maxLength": 254,
+          "type": "string"
+        },
+        "description": {
+          "description": "optional description of client",
+          "maxLength": 200,
+          "type": "string"
+        },
+        "allowedScopes": {
+          "description": "allowed scopes of client",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
-      },
-      "x-ms-external": true
+      }
+    },
+    "ClientList": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "string"
+        },
+        "nextLink": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Client"
+          }
+        }
+      }
     },
     "ClientSecretType": {
       "enum": [
@@ -505,8 +414,32 @@
         }
       }
     },
-    "Void": {
-      "type": "object"
+    "InnerErrorData": {
+      "type": "object",
+      "additionalProperties": { },
+      "x-ms-external": true
+    },
+    "ProblemDetails": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": { }
     }
   }
 }

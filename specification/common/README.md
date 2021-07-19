@@ -1,8 +1,8 @@
-# Eryph Identity API Spec
+# Eryph Common API Spec
     
 > see https://aka.ms/autorest
 
-This is the AutoRest configuration file for the eryph identity API.
+This is the AutoRest configuration file for the eryph common API.
 
 
 ---
@@ -21,10 +21,10 @@ To see additional help and options, run:
 
 
 ### Basic Information 
-These are the global settings for the eryph identity API.
+These are the global settings for the eryph common API.
 
 ``` yaml
-title: EryphIdentity
+title: EryphCommon
 tag: v1
 ```
 

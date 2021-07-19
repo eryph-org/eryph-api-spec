@@ -1,13 +1,13 @@
-# Haipa Compute API Spec
+# Eryph Compute API Spec
     
 > see https://aka.ms/autorest
 
-This is the AutoRest configuration file for the Haipa Compute Api.
+This is the AutoRest configuration file for the eryph compute API.
 
 
 ---
 ## Getting Started 
-To build the API for Haipa, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
+To build the API for eryph, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
 
 > `autorest`
 
@@ -21,10 +21,10 @@ To see additional help and options, run:
 
 
 ### Basic Information 
-These are the global settings for the Haipa Compute API.
+These are the global settings for the eryph compute API.
 
 ``` yaml
-title: HaipaCompute
+title: EryphCompute
 tag: v1
 ```
 

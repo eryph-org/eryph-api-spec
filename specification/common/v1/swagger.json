@@ -1,0 +1,270 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Common Api",
+    "description": "Common Api",
+    "contact": {
+      "name": "dbosoft",
+      "email": "support@dbosoft.eu"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "1.0"
+  },
+  "host": "localhost:62189",
+  "basePath": "/common",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v1/operations/{id}": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Get a operation",
+        "description": "Get a operation",
+        "operationId": "Operations_Get",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "logTimeStamp",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "schema": {
+              "$ref": "#/definitions/ApiError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/operations": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "summary": "List all Operations",
+        "description": "List all Operations",
+        "operationId": "Operations_List",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "logTimeStamp",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "name": "count",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OperationList"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "schema": {
+              "$ref": "#/definitions/ApiError"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ApiError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/ApiErrorData"
+        }
+      },
+      "x-ms-external": true
+    },
+    "ApiErrorBody": {
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": { },
+      "x-ms-external": true
+    },
+    "ApiErrorData": {
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "properties": {
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiErrorBody"
+          }
+        },
+        "innererror": {
+          "$ref": "#/definitions/InnerErrorData"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": { },
+      "x-ms-external": true
+    },
+    "InnerErrorData": {
+      "type": "object",
+      "additionalProperties": { },
+      "x-ms-external": true
+    },
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/OperationStatus"
+        },
+        "statusMessage": {
+          "type": "string"
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OperationResource"
+          }
+        },
+        "logEntries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OperationLogEntry"
+          }
+        }
+      },
+      "x-ms-external": true
+    },
+    "OperationList": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "string"
+        },
+        "nextLink": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Operation"
+          }
+        }
+      }
+    },
+    "OperationLogEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "x-ms-external": true
+    },
+    "OperationResource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "resourceType": {
+          "$ref": "#/definitions/ResourceType"
+        }
+      },
+      "x-ms-external": true
+    },
+    "OperationStatus": {
+      "enum": [
+        "Queued",
+        "Running",
+        "Failed",
+        "Completed"
+      ],
+      "type": "string",
+      "x-ms-external": true
+    },
+    "ResourceType": {
+      "enum": [
+        "Machine",
+        "Disk",
+        "Network"
+      ],
+      "type": "string",
+      "x-ms-external": true
+    }
+  }
+}
