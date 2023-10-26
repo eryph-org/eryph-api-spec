@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Haipa Identity Api",
-    "description": "Haipa Identity Api",
+    "title": "Eryph Identity Api",
+    "description": "Eryph Identity Api",
     "contact": {
       "name": "dbosoft",
       "email": "support@dbosoft.eu"
@@ -13,7 +13,7 @@
     },
     "version": "1.0"
   },
-  "host": "localhost:62189",
+  "host": "localhost:53065",
   "basePath": "/identity",
   "schemes": [
     "https"
@@ -28,7 +28,6 @@
         "description": "Creates a client",
         "operationId": "Clients_Create",
         "consumes": [
-          "application/json-patch+json",
           "application/json",
           "text/json",
           "application/*+json"
@@ -64,8 +63,10 @@
       },
       "get": {
         "tags": [
-          "List"
+          "Clients"
         ],
+        "summary": "Lists clients",
+        "description": "Lists clients",
         "operationId": "Clients_List",
         "produces": [
           "text/plain",
@@ -100,9 +101,7 @@
         "description": "Deletes a client",
         "operationId": "Clients_Delete",
         "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
+          "application/json"
         ],
         "parameters": [
           {
@@ -115,12 +114,6 @@
         "responses": {
           "200": {
             "description": "Success"
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ProblemDetails"
-            }
           },
           "default": {
             "description": "Error response describing why the operation failed",
@@ -157,12 +150,6 @@
               "$ref": "#/definitions/Client"
             }
           },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ProblemDetails"
-            }
-          },
           "default": {
             "description": "Error response describing why the operation failed",
             "schema": {
@@ -179,7 +166,6 @@
         "description": "Updates a client",
         "operationId": "Clients_Update",
         "consumes": [
-          "application/json-patch+json",
           "application/json",
           "text/json",
           "application/*+json"
@@ -205,16 +191,10 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/Client"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ProblemDetails"
             }
           },
           "default": {
@@ -231,9 +211,9 @@
         "tags": [
           "Clients"
         ],
-        "summary": "Updates a client",
-        "description": "Updates a client",
-        "operationId": "Clients_Update",
+        "summary": "Updates a client key",
+        "description": "Updates a client key",
+        "operationId": "Clients_NewKey",
         "produces": [
           "text/plain",
           "application/json",
@@ -248,16 +228,10 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/ClientWithSecrets"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/ProblemDetails"
             }
           },
           "default": {
@@ -307,15 +281,6 @@
       ],
       "type": "object",
       "properties": {
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ApiErrorBody"
-          }
-        },
-        "innererror": {
-          "$ref": "#/definitions/InnerErrorData"
-        },
         "code": {
           "type": "string"
         },
@@ -324,6 +289,15 @@
         },
         "target": {
           "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiErrorBody"
+          }
+        },
+        "innererror": {
+          "$ref": "#/definitions/InnerErrorData"
         }
       },
       "additionalProperties": { },
@@ -333,7 +307,7 @@
       "type": "object",
       "properties": {
         "id": {
-          "description": "Unique identifier for a haipa client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
+          "description": "Unique identifier for a eryph client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
           "maxLength": 40,
           "type": "string"
         },
@@ -383,15 +357,8 @@
     "ClientWithSecrets": {
       "type": "object",
       "properties": {
-        "key": {
-          "description": "private Key of client",
-          "type": "string"
-        },
-        "keyType": {
-          "$ref": "#/definitions/ClientSecretType"
-        },
         "id": {
-          "description": "Unique identifier for a haipa client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
+          "description": "Unique identifier for a eryph client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
           "maxLength": 40,
           "type": "string"
         },
@@ -411,35 +378,19 @@
           "items": {
             "type": "string"
           }
+        },
+        "key": {
+          "description": "private Key of client",
+          "type": "string"
+        },
+        "keyType": {
+          "$ref": "#/definitions/ClientSecretType"
         }
       }
     },
     "InnerErrorData": {
       "type": "object",
-      "additionalProperties": { },
       "x-ms-external": true
-    },
-    "ProblemDetails": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "status": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "detail": {
-          "type": "string"
-        },
-        "instance": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": { }
     }
   }
 }

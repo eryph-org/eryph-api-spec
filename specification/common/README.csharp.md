@@ -11,9 +11,10 @@ Please also specify `--csharp-src-folder=<path to src directory`.
 
 ``` yaml $(csharp)
 csharp:
-  eryph: true
+  generation1-convenience-client: true
+  public-clients: true
+  single-top-level-client: true
   license-header: MIT
-  payload-flattening-threshold: 1
   clear-output-folder: true
 ```
 
