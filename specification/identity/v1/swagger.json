@@ -1,5 +1,5 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.1",
   "info": {
     "title": "Eryph Identity Api",
     "description": "Eryph Identity Api",
@@ -13,12 +13,116 @@
     },
     "version": "1.0"
   },
-  "host": "localhost:53065",
-  "basePath": "/identity",
-  "schemes": [
-    "https"
+  "servers": [
+    {
+      "url": "https://localhost:8000/identity"
+    }
   ],
   "paths": {
+    "/v1/roles": {
+      "post": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Creates a new role",
+        "description": "Creates a role",
+        "operationId": "Roles_Create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Role"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Lists roles",
+        "description": "Lists roles",
+        "operationId": "Roles_List",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleList"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/v1/clients": {
       "post": {
         "tags": [
@@ -27,36 +131,54 @@
         "summary": "Creates a new client",
         "description": "Creates a client",
         "operationId": "Clients_Create",
-        "consumes": [
-          "application/json",
-          "text/json",
-          "application/*+json"
-        ],
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/Client"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ClientWithSecrets"
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientWithSecret"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientWithSecret"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientWithSecret"
+                }
+              }
             }
           },
           "default": {
             "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
             }
           }
         }
@@ -68,27 +190,194 @@
         "summary": "Lists clients",
         "description": "Lists clients",
         "operationId": "Clients_List",
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ClientList"
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientList"
+                }
+              }
             }
           },
           "default": {
             "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
             }
           }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/v1/roles/{id}": {
+      "delete": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Deletes a role",
+        "description": "Deletes a role",
+        "operationId": "Roles_Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Get a role",
+        "description": "Get a role",
+        "operationId": "Roles_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Updates a role",
+        "description": "Updates a role",
+        "operationId": "Roles_Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoleRequestBody"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoleRequestBody"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoleRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -100,15 +389,14 @@
         "summary": "Deletes a client",
         "description": "Deletes a client",
         "operationId": "Clients_Delete",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "in": "path",
             "name": "id",
+            "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -117,8 +405,12 @@
           },
           "default": {
             "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
             }
           }
         }
@@ -130,30 +422,45 @@
         "summary": "Get a client",
         "description": "Get a client",
         "operationId": "Clients_Get",
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
         "parameters": [
           {
-            "in": "path",
             "name": "id",
+            "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/Client"
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
             }
           },
           "default": {
             "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
             }
           }
         }
@@ -165,42 +472,64 @@
         "summary": "Updates a client",
         "description": "Updates a client",
         "operationId": "Clients_Update",
-        "consumes": [
-          "application/json",
-          "text/json",
-          "application/*+json"
-        ],
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
         "parameters": [
           {
-            "in": "path",
             "name": "id",
+            "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
             "schema": {
-              "$ref": "#/definitions/Client"
+              "type": "string"
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/Client"
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
             }
           },
           "default": {
             "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
             }
           }
         }
@@ -214,183 +543,317 @@
         "summary": "Updates a client key",
         "description": "Updates a client key",
         "operationId": "Clients_NewKey",
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
         "parameters": [
           {
-            "in": "path",
             "name": "id",
+            "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewClientKeyRequestBody"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewClientKeyRequestBody"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewClientKeyRequestBody"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ClientWithSecrets"
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientWithSecret"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientWithSecret"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientWithSecret"
+                }
+              }
             }
           },
           "default": {
             "description": "Error response describing why the operation failed",
-            "schema": {
-              "$ref": "#/definitions/ApiError"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
             }
           }
         }
       }
     }
   },
-  "definitions": {
-    "ApiError": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "$ref": "#/definitions/ApiErrorData"
-        }
-      },
-      "x-ms-external": true
-    },
-    "ApiErrorBody": {
-      "required": [
-        "code",
-        "message"
-      ],
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "target": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": { },
-      "x-ms-external": true
-    },
-    "ApiErrorData": {
-      "required": [
-        "code",
-        "message"
-      ],
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "target": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ApiErrorBody"
+  "components": {
+    "schemas": {
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ApiErrorData"
           }
         },
-        "innererror": {
-          "$ref": "#/definitions/InnerErrorData"
-        }
+        "additionalProperties": false,
+        "x-ms-external": true
       },
-      "additionalProperties": { },
-      "x-ms-external": true
-    },
-    "Client": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "Unique identifier for a eryph client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
-          "maxLength": 40,
-          "type": "string"
-        },
-        "name": {
-          "description": "human readable name of client, for example email address of owner",
-          "maxLength": 254,
-          "type": "string"
-        },
-        "description": {
-          "description": "optional description of client",
-          "maxLength": 200,
-          "type": "string"
-        },
-        "allowedScopes": {
-          "description": "allowed scopes of client",
-          "type": "array",
-          "items": {
+      "ApiErrorBody": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
             "type": "string"
-          }
-        }
-      }
-    },
-    "ClientList": {
-      "type": "object",
-      "properties": {
-        "count": {
-          "type": "string"
-        },
-        "nextLink": {
-          "type": "string"
-        },
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Client"
-          }
-        }
-      }
-    },
-    "ClientSecretType": {
-      "enum": [
-        "RsaPrivateKey",
-        "SharedKey"
-      ],
-      "type": "string"
-    },
-    "ClientWithSecrets": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "Unique identifier for a eryph client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
-          "maxLength": 40,
-          "type": "string"
-        },
-        "name": {
-          "description": "human readable name of client, for example email address of owner",
-          "maxLength": 254,
-          "type": "string"
-        },
-        "description": {
-          "description": "optional description of client",
-          "maxLength": 200,
-          "type": "string"
-        },
-        "allowedScopes": {
-          "description": "allowed scopes of client",
-          "type": "array",
-          "items": {
+          },
+          "message": {
+            "minLength": 1,
             "type": "string"
+          },
+          "target": {
+            "type": "string",
+            "nullable": true
           }
         },
-        "key": {
-          "description": "private Key of client",
-          "type": "string"
+        "additionalProperties": { },
+        "x-ms-external": true
+      },
+      "ApiErrorData": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "message": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "target": {
+            "type": "string",
+            "nullable": true
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiErrorBody"
+            },
+            "nullable": true
+          },
+          "innererror": {
+            "$ref": "#/components/schemas/InnerErrorData"
+          }
         },
-        "keyType": {
-          "$ref": "#/definitions/ClientSecretType"
-        }
+        "additionalProperties": { },
+        "x-ms-external": true
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "maxLength": 40,
+            "type": "string",
+            "description": "Unique identifier for a eryph client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
+            "nullable": true
+          },
+          "name": {
+            "maxLength": 254,
+            "type": "string",
+            "description": "human readable name of client, for example email address of owner",
+            "nullable": true
+          },
+          "allowedScopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "allowed scopes of client",
+            "nullable": true
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Roles of client",
+            "nullable": true
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "Tenant of client",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientList": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "string",
+            "nullable": true
+          },
+          "nextLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Client"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientWithSecret": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "maxLength": 40,
+            "type": "string",
+            "description": "Unique identifier for a eryph client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
+            "nullable": true
+          },
+          "name": {
+            "maxLength": 254,
+            "type": "string",
+            "description": "human readable name of client, for example email address of owner",
+            "nullable": true
+          },
+          "allowedScopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "allowed scopes of client",
+            "nullable": true
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Roles of client",
+            "nullable": true
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "Tenant of client",
+            "format": "uuid"
+          },
+          "key": {
+            "type": "string",
+            "description": "private Key of client",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InnerErrorData": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-ms-external": true
+      },
+      "NewClientKeyRequestBody": {
+        "type": "object",
+        "properties": {
+          "sharedSecret": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for a role",
+            "nullable": true
+          },
+          "name": {
+            "maxLength": 40,
+            "type": "string",
+            "description": "human readable name of role",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 128,
+            "type": "string",
+            "description": "long description of role",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleList": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "string",
+            "nullable": true
+          },
+          "nextLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Role"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateRoleRequestBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       }
-    },
-    "InnerErrorData": {
-      "type": "object",
-      "x-ms-external": true
     }
   }
 }

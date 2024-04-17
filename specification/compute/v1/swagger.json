@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "https://localhost:52486/compute"
+      "url": "https://localhost:8000/compute"
     }
   ],
   "paths": {
@@ -95,10 +95,11 @@
             }
           },
           {
-            "name": "project",
+            "name": "projectId",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -119,6 +120,140 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProjectList"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/v1/projects/{projectId}/members": {
+      "post": {
+        "tags": [
+          "ProjectMembers"
+        ],
+        "summary": "Adds a project member",
+        "description": "Add a project member",
+        "operationId": "ProjectMembers_Add",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProjectMemberBody"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProjectMemberBody"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProjectMemberBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ProjectMembers"
+        ],
+        "summary": "List all project members",
+        "description": "List all project members",
+        "operationId": "ProjectMembers_List",
+        "parameters": [
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMemberRoleList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMemberRoleList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMemberRoleList"
                 }
               }
             }
@@ -215,10 +350,11 @@
             }
           },
           {
-            "name": "project",
+            "name": "projectId",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -532,6 +668,126 @@
         }
       }
     },
+    "/v1/projects/{projectId}/members/{id}": {
+      "delete": {
+        "tags": [
+          "ProjectMembers"
+        ],
+        "summary": "Remove a project member",
+        "description": "Removes a project member assignment",
+        "operationId": "ProjectMembers_Remove",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ProjectMembers"
+        ],
+        "summary": "Get a project member",
+        "description": "Get a project member",
+        "operationId": "ProjectMembers_Get",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMemberRole"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMemberRole"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMemberRole"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/catlets/{id}": {
       "delete": {
         "tags": [
@@ -617,6 +873,76 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Catlet"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Updates a catlet",
+        "description": "Updates a catlet",
+        "operationId": "Catlets_Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCatletRequestBody"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCatletRequestBody"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCatletRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
                 }
               }
             }
@@ -805,7 +1131,7 @@
         }
       }
     },
-    "/v1/projects/{project}/vnetworks/config": {
+    "/v1/projects/{projectId}/vnetworks/config": {
       "get": {
         "tags": [
           "Virtual Networks"
@@ -815,11 +1141,12 @@
         "operationId": "VNetworks_GetConfig",
         "parameters": [
           {
-            "name": "project",
+            "name": "projectId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -874,10 +1201,11 @@
             }
           },
           {
-            "name": "project",
+            "name": "projectId",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -994,10 +1322,11 @@
             }
           },
           {
-            "name": "project",
+            "name": "projectId",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -1070,10 +1399,11 @@
             }
           },
           {
-            "name": "project",
+            "name": "projectId",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -1114,7 +1444,7 @@
         }
       }
     },
-    "/v1/projects/{project}/vnetworks": {
+    "/v1/projects/{projectId}/vnetworks": {
       "get": {
         "tags": [
           "Virtual Networks"
@@ -1124,11 +1454,12 @@
         "operationId": "VNetworks_ListProject",
         "parameters": [
           {
-            "name": "project",
+            "name": "projectId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           },
           {
@@ -1250,78 +1581,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StopCatletRequest"
+                "$ref": "#/components/schemas/StopCatletRequestBody"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/StopCatletRequest"
+                "$ref": "#/components/schemas/StopCatletRequestBody"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/StopCatletRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Operation"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Operation"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Operation"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/catlet": {
-      "put": {
-        "tags": [
-          "Catlets"
-        ],
-        "summary": "Updates a catlet",
-        "description": "Updates a catlet",
-        "operationId": "Catlets_Update",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCatletRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCatletRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCatletRequest"
+                "$ref": "#/components/schemas/StopCatletRequestBody"
               }
             }
           }
@@ -1381,9 +1651,11 @@
         "type": "object",
         "properties": {
           "code": {
+            "minLength": 1,
             "type": "string"
           },
           "message": {
+            "minLength": 1,
             "type": "string"
           },
           "target": {
@@ -1402,9 +1674,11 @@
         "type": "object",
         "properties": {
           "code": {
+            "minLength": 1,
             "type": "string"
           },
           "message": {
+            "minLength": 1,
             "type": "string"
           },
           "target": {
@@ -1488,7 +1762,8 @@
           "VHD",
           "SharedVHD",
           "PHD",
-          "DVD"
+          "DVD",
+          "VHDSet"
         ],
         "type": "string"
       },
@@ -1630,6 +1905,25 @@
         },
         "additionalProperties": false
       },
+      "NewProjectMemberBody": {
+        "type": "object",
+        "properties": {
+          "correlationId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "memberId": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
       "NewProjectRequest": {
         "required": [
           "name"
@@ -1642,6 +1936,7 @@
             "nullable": true
           },
           "name": {
+            "minLength": 1,
             "type": "string"
           }
         },
@@ -1790,6 +2085,26 @@
           },
           "status": {
             "$ref": "#/components/schemas/OperationTaskStatus"
+          },
+          "reference": {
+            "$ref": "#/components/schemas/OperationTaskReference"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperationTaskReference": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/TaskReferenceType"
+          },
+          "projectName": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1843,6 +2158,57 @@
         },
         "additionalProperties": false
       },
+      "ProjectMemberRole": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "projectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "projectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "memberId": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleId": {
+            "type": "string",
+            "nullable": true
+          },
+          "roleName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectMemberRoleList": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "string",
+            "nullable": true
+          },
+          "nextLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectMemberRole"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ResourceType": {
         "enum": [
           "Catlet",
@@ -1853,27 +2219,27 @@
         "type": "string",
         "x-ms-external": true
       },
-      "StopCatletRequest": {
-        "required": [
-          "id"
-        ],
+      "StopCatletRequestBody": {
         "type": "object",
         "properties": {
           "graceful": {
             "type": "boolean",
             "nullable": true
-          },
-          "id": {
-            "type": "string"
           }
         },
         "additionalProperties": false
       },
-      "UpdateCatletRequest": {
+      "TaskReferenceType": {
+        "enum": [
+          "Project",
+          "ProjectMember"
+        ],
+        "type": "string"
+      },
+      "UpdateCatletRequestBody": {
         "required": [
           "configuration",
-          "correlationId",
-          "id"
+          "correlationId"
         ],
         "type": "object",
         "properties": {
@@ -1881,10 +2247,7 @@
             "type": "string",
             "format": "uuid"
           },
-          "configuration": { },
-          "id": {
-            "type": "string"
-          }
+          "configuration": { }
         },
         "additionalProperties": false
       },
