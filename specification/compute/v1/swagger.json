@@ -632,7 +632,8 @@
                 "$ref": "#/components/schemas/UpdateProjectBody"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "202": {
@@ -1047,7 +1048,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1594,7 +1595,8 @@
                 "$ref": "#/components/schemas/StopCatletRequestBody"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "202": {
@@ -1821,20 +1823,24 @@
       },
       "NewCatletRequest": {
         "required": [
-          "configuration"
+          "configuration",
+          "correlationId"
         ],
         "type": "object",
         "properties": {
           "correlationId": {
             "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "format": "uuid"
           },
           "configuration": { }
         },
         "additionalProperties": false
       },
       "NewProjectMemberBody": {
+        "required": [
+          "memberId",
+          "roleId"
+        ],
         "type": "object",
         "properties": {
           "correlationId": {
@@ -1855,14 +1861,14 @@
       },
       "NewProjectRequest": {
         "required": [
+          "correlationId",
           "name"
         ],
         "type": "object",
         "properties": {
           "correlationId": {
             "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "format": "uuid"
           },
           "name": {
             "minLength": 1,
@@ -2202,16 +2208,19 @@
         "additionalProperties": false
       },
       "UpdateProjectBody": {
+        "required": [
+          "correlationId",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "correlationId": {
             "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "format": "uuid"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false

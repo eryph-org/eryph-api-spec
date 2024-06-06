@@ -241,7 +241,8 @@
                 "$ref": "#/components/schemas/Client"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -312,7 +313,8 @@
                 "$ref": "#/components/schemas/NewClientKeyRequestBody"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
