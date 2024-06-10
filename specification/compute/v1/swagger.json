@@ -68,11 +68,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -125,11 +125,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -201,11 +201,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -259,11 +259,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -323,11 +323,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -380,11 +380,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -435,11 +435,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -485,11 +485,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -537,11 +537,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -587,11 +587,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -632,7 +632,8 @@
                 "$ref": "#/components/schemas/UpdateProjectBody"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "202": {
@@ -656,11 +657,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -717,11 +718,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -776,11 +777,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -828,11 +829,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -878,11 +879,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -948,11 +949,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1000,11 +1001,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1047,7 +1048,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1067,11 +1068,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1119,11 +1120,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1172,11 +1173,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1231,11 +1232,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1293,11 +1294,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1352,11 +1353,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1429,11 +1430,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1492,11 +1493,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1547,11 +1548,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1594,7 +1595,8 @@
                 "$ref": "#/components/schemas/StopCatletRequestBody"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "202": {
@@ -1618,11 +1620,11 @@
             }
           },
           "default": {
-            "description": "Error response describing why the operation failed",
+            "description": "Error response describing why the request failed",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiError"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1633,72 +1635,6 @@
   },
   "components": {
     "schemas": {
-      "ApiError": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "$ref": "#/components/schemas/ApiErrorData"
-          }
-        },
-        "additionalProperties": false,
-        "x-ms-external": true
-      },
-      "ApiErrorBody": {
-        "required": [
-          "code",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "code": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "message": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "target": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": { },
-        "x-ms-external": true
-      },
-      "ApiErrorData": {
-        "required": [
-          "code",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "code": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "message": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "target": {
-            "type": "string",
-            "nullable": true
-          },
-          "details": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ApiErrorBody"
-            },
-            "nullable": true
-          },
-          "innererror": {
-            "$ref": "#/components/schemas/InnerErrorData"
-          }
-        },
-        "additionalProperties": { },
-        "x-ms-external": true
-      },
       "Catlet": {
         "type": "object",
         "properties": {
@@ -1885,11 +1821,6 @@
         },
         "additionalProperties": false
       },
-      "InnerErrorData": {
-        "type": "object",
-        "additionalProperties": false,
-        "x-ms-external": true
-      },
       "NewCatletRequest": {
         "required": [
           "configuration",
@@ -1906,6 +1837,10 @@
         "additionalProperties": false
       },
       "NewProjectMemberBody": {
+        "required": [
+          "memberId",
+          "roleId"
+        ],
         "type": "object",
         "properties": {
           "correlationId": {
@@ -1926,14 +1861,14 @@
       },
       "NewProjectRequest": {
         "required": [
+          "correlationId",
           "name"
         ],
         "type": "object",
         "properties": {
           "correlationId": {
             "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "format": "uuid"
           },
           "name": {
             "minLength": 1,
@@ -1985,8 +1920,7 @@
             "nullable": true
           }
         },
-        "additionalProperties": false,
-        "x-ms-external": true
+        "additionalProperties": false
       },
       "OperationList": {
         "type": "object",
@@ -2029,8 +1963,7 @@
             "format": "date-time"
           }
         },
-        "additionalProperties": false,
-        "x-ms-external": true
+        "additionalProperties": false
       },
       "OperationResource": {
         "type": "object",
@@ -2047,8 +1980,7 @@
             "$ref": "#/components/schemas/ResourceType"
           }
         },
-        "additionalProperties": false,
-        "x-ms-external": true
+        "additionalProperties": false
       },
       "OperationStatus": {
         "enum": [
@@ -2057,8 +1989,7 @@
           "Failed",
           "Completed"
         ],
-        "type": "string",
-        "x-ms-external": true
+        "type": "string"
       },
       "OperationTask": {
         "type": "object",
@@ -2118,6 +2049,33 @@
         ],
         "type": "string"
       },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
       "Project": {
         "type": "object",
         "properties": {
@@ -2134,8 +2092,7 @@
             "nullable": true
           }
         },
-        "additionalProperties": false,
-        "x-ms-external": true
+        "additionalProperties": false
       },
       "ProjectList": {
         "type": "object",
@@ -2216,8 +2173,7 @@
           "VirtualNetwork",
           "CatletFarm"
         ],
-        "type": "string",
-        "x-ms-external": true
+        "type": "string"
       },
       "StopCatletRequestBody": {
         "type": "object",
@@ -2252,16 +2208,19 @@
         "additionalProperties": false
       },
       "UpdateProjectBody": {
+        "required": [
+          "correlationId",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "correlationId": {
             "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "format": "uuid"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -2368,6 +2327,10 @@
             "nullable": true
           },
           "projectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "environment": {
             "type": "string",
             "nullable": true
           },
