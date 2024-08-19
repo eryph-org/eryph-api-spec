@@ -1789,6 +1789,14 @@
         ],
         "type": "string"
       },
+      "CatletStopMode": {
+        "enum": [
+          "Shutdown",
+          "Hard",
+          "Kill"
+        ],
+        "type": "string"
+      },
       "FloatingNetworkPort": {
         "type": "object",
         "properties": {
@@ -2176,11 +2184,13 @@
         "type": "string"
       },
       "StopCatletRequestBody": {
+        "required": [
+          "mode"
+        ],
         "type": "object",
         "properties": {
-          "graceful": {
-            "type": "boolean",
-            "nullable": true
+          "mode": {
+            "$ref": "#/components/schemas/CatletStopMode"
           }
         },
         "additionalProperties": false
@@ -2278,7 +2288,8 @@
           },
           "parentId": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "nullable": true
           },
           "attachedDrives": {
             "type": "array",
