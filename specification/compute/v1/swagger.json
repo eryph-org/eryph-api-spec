@@ -2350,6 +2350,14 @@
         "additionalProperties": false
       },
       "VirtualDisk": {
+        "required": [
+          "dataStore",
+          "environment",
+          "id",
+          "location",
+          "name",
+          "project"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -2382,8 +2390,7 @@
           },
           "sizeBytes": {
             "type": "integer",
-            "format": "int64",
-            "nullable": true
+            "format": "int64"
           },
           "parentId": {
             "type": "string",
