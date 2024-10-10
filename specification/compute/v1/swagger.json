@@ -154,7 +154,7 @@
         "operationId": "VirtualDisks_List",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "query",
             "schema": {
               "type": "string"
@@ -283,7 +283,7 @@
         }
       }
     },
-    "/v1/projects/{projectId}/members": {
+    "/v1/projects/{project_id}/members": {
       "post": {
         "tags": [
           "Project Members"
@@ -293,7 +293,7 @@
         "operationId": "ProjectMembers_Add",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -350,7 +350,7 @@
         "operationId": "ProjectMembers_List",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -448,7 +448,7 @@
         "operationId": "Catlets_List",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "query",
             "schema": {
               "type": "string"
@@ -681,7 +681,7 @@
         ]
       }
     },
-    "/v1/projects/{projectId}/members/{id}": {
+    "/v1/projects/{project_id}/members/{id}": {
       "delete": {
         "tags": [
           "Project Members"
@@ -691,7 +691,7 @@
         "operationId": "ProjectMembers_Remove",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -746,7 +746,7 @@
         "operationId": "ProjectMembers_Get",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -1193,7 +1193,7 @@
         }
       }
     },
-    "/v1/projects/{projectId}/virtualnetworks/config": {
+    "/v1/projects/{project_id}/virtualnetworks/config": {
       "get": {
         "tags": [
           "Virtual Networks"
@@ -1203,7 +1203,7 @@
         "operationId": "VirtualNetworks_GetConfig",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -1250,7 +1250,7 @@
         "operationId": "VirtualNetworks_UpdateConfig",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "path",
             "required": true,
             "schema": {
@@ -1309,7 +1309,7 @@
         "operationId": "VirtualNetworks_List",
         "parameters": [
           {
-            "name": "projectId",
+            "name": "project_id",
             "in": "query",
             "schema": {
               "type": "string"

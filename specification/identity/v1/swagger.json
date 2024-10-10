@@ -320,7 +320,6 @@
           "allowed_scopes",
           "id",
           "name",
-          "roles",
           "tenant_id"
         ],
         "type": "object",
@@ -346,7 +345,8 @@
             "items": {
               "type": "string"
             },
-            "description": "The roles of the client,"
+            "description": "The roles of the client,",
+            "nullable": true
           },
           "tenant_id": {
             "type": "string",
@@ -376,7 +376,6 @@
           "id",
           "key",
           "name",
-          "roles",
           "tenant_id"
         ],
         "type": "object",
@@ -402,7 +401,8 @@
             "items": {
               "type": "string"
             },
-            "description": "The roles of the client,"
+            "description": "The roles of the client,",
+            "nullable": true
           },
           "tenant_id": {
             "type": "string",
