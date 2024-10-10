@@ -24,24 +24,14 @@
         "tags": [
           "Clients"
         ],
-        "summary": "Creates a new client",
-        "description": "Creates a client",
+        "summary": "Create a new client",
+        "description": "Create a new client",
         "operationId": "Clients_Create",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Client"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Client"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Client"
+                "$ref": "#/components/schemas/NewClientRequestBody"
               }
             }
           }
@@ -50,17 +40,7 @@
           "201": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientWithSecret"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientWithSecret"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ClientWithSecret"
                 }
@@ -77,30 +57,27 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients:write"
+            ]
+          }
+        ]
       },
       "get": {
         "tags": [
           "Clients"
         ],
-        "summary": "Lists clients",
-        "description": "Lists clients",
+        "summary": "List all clients",
+        "description": "List all clients",
         "operationId": "Clients_List",
         "responses": {
           "200": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientList"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientList"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ClientList"
                 }
@@ -118,8 +95,15 @@
             }
           }
         },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients:read"
+            ]
+          }
+        ],
         "x-ms-pageable": {
-          "nextLinkName": "nextLink"
+          "nextLinkName": null
         }
       }
     },
@@ -128,8 +112,8 @@
         "tags": [
           "Clients"
         ],
-        "summary": "Deletes a client",
-        "description": "Deletes a client",
+        "summary": "Delete a client",
+        "description": "Delete a client",
         "operationId": "Clients_Delete",
         "parameters": [
           {
@@ -155,7 +139,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients:write"
+            ]
+          }
+        ]
       },
       "get": {
         "tags": [
@@ -178,17 +169,7 @@
           "200": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Client"
                 }
@@ -205,14 +186,21 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients:read"
+            ]
+          }
+        ]
       },
       "put": {
         "tags": [
           "Clients"
         ],
-        "summary": "Updates a client",
-        "description": "Updates a client",
+        "summary": "Update a client",
+        "description": "Update a client",
         "operationId": "Clients_Update",
         "parameters": [
           {
@@ -228,17 +216,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Client"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Client"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Client"
+                "$ref": "#/components/schemas/UpdateClientRequestBody"
               }
             }
           },
@@ -248,17 +226,7 @@
           "200": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Client"
                 }
@@ -275,16 +243,23 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients:write"
+            ]
+          }
+        ]
       }
     },
-    "/v1/clients/{id}/newkey": {
+    "/v1/clients/{id}/key": {
       "post": {
         "tags": [
           "Clients"
         ],
-        "summary": "Updates a client key",
-        "description": "Updates a client key",
+        "summary": "Create or replace the client key",
+        "description": "Create or replace the client key",
         "operationId": "Clients_NewKey",
         "parameters": [
           {
@@ -302,16 +277,6 @@
               "schema": {
                 "$ref": "#/components/schemas/NewClientKeyRequestBody"
               }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewClientKeyRequestBody"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewClientKeyRequestBody"
-              }
             }
           },
           "required": true
@@ -320,17 +285,7 @@
           "200": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientWithSecret"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientWithSecret"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ClientWithSecret"
                 }
@@ -347,114 +302,115 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients:write"
+            ]
+          }
+        ]
       }
     }
   },
   "components": {
     "schemas": {
       "Client": {
+        "required": [
+          "allowed_scopes",
+          "id",
+          "name",
+          "roles",
+          "tenant_id"
+        ],
         "type": "object",
         "properties": {
           "id": {
             "maxLength": 40,
             "type": "string",
-            "description": "Unique identifier for a eryph client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
-            "nullable": true
+            "description": "The Unique identifier of the eryph client.\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed."
           },
           "name": {
             "maxLength": 254,
             "type": "string",
-            "description": "human readable name of client, for example email address of owner",
-            "nullable": true
+            "description": "Human-readable name of the client, for example email address of owner."
           },
-          "allowedScopes": {
+          "allowed_scopes": {
             "type": "array",
             "items": {
               "type": "string"
-            },
-            "description": "allowed scopes of client",
-            "nullable": true
+            }
           },
           "roles": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             },
-            "description": "Roles of client",
-            "nullable": true
+            "description": "The roles of the client,"
           },
-          "tenantId": {
+          "tenant_id": {
             "type": "string",
-            "description": "Tenant of client",
-            "format": "uuid"
+            "description": "The ID of the tenant to which the client belongs."
           }
         },
         "additionalProperties": false
       },
       "ClientList": {
+        "required": [
+          "value"
+        ],
         "type": "object",
         "properties": {
-          "count": {
-            "type": "string",
-            "nullable": true
-          },
-          "nextLink": {
-            "type": "string",
-            "nullable": true
-          },
           "value": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Client"
-            },
-            "nullable": true
+            }
           }
         },
         "additionalProperties": false
       },
       "ClientWithSecret": {
+        "required": [
+          "allowed_scopes",
+          "id",
+          "key",
+          "name",
+          "roles",
+          "tenant_id"
+        ],
         "type": "object",
         "properties": {
           "id": {
             "maxLength": 40,
             "type": "string",
-            "description": "Unique identifier for a eryph client\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed.",
-            "nullable": true
+            "description": "The Unique identifier of the eryph client.\r\nOnly characters a-z, A-Z, numbers 0-9 and hyphens are allowed."
           },
           "name": {
             "maxLength": 254,
             "type": "string",
-            "description": "human readable name of client, for example email address of owner",
-            "nullable": true
+            "description": "Human-readable name of the client, for example email address of owner."
           },
-          "allowedScopes": {
+          "allowed_scopes": {
             "type": "array",
             "items": {
               "type": "string"
-            },
-            "description": "allowed scopes of client",
-            "nullable": true
+            }
           },
           "roles": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             },
-            "description": "Roles of client",
-            "nullable": true
+            "description": "The roles of the client,"
           },
-          "tenantId": {
+          "tenant_id": {
             "type": "string",
-            "description": "Tenant of client",
-            "format": "uuid"
+            "description": "The ID of the tenant to which the client belongs."
           },
           "key": {
             "type": "string",
-            "description": "private Key of client",
-            "nullable": true
+            "description": "The private key or shared secret of the client."
           }
         },
         "additionalProperties": false
@@ -462,8 +418,37 @@
       "NewClientKeyRequestBody": {
         "type": "object",
         "properties": {
-          "sharedSecret": {
+          "shared_secret": {
             "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewClientRequestBody": {
+        "required": [
+          "allowed_scopes",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 254,
+            "type": "string",
+            "description": "Human-readable name of the client, for example email address of owner."
+          },
+          "allowed_scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The roles of the client,",
             "nullable": true
           }
         },
@@ -495,6 +480,44 @@
           }
         },
         "additionalProperties": { }
+      },
+      "UpdateClientRequestBody": {
+        "required": [
+          "allowed_scopes",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 254,
+            "type": "string",
+            "description": "Human-readable name of the client, for example email address of owner."
+          },
+          "allowed_scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "Eryph only supports the client credentials flow. Depending\r\non the client, you can use either the client secret or a\r\nclient assertion with type\r\n`urn:ietf:params:oauth:client-assertion-type:jwt-bearer`.",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://localhost:8000/identity/connect/token",
+            "scopes": {
+              "identity:read": "Grants read access to the identity API",
+              "identity:write": "Grants write access to the identity API",
+              "identity:clients:read": "Grants read access for identity clients",
+              "identity:clients:write": "Grants write access for identity clients"
+            }
+          }
+        }
       }
     }
   }
