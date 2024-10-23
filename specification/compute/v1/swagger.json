@@ -1721,6 +1721,7 @@
       },
       "Gene": {
         "required": [
+          "architecture",
           "gene_set",
           "gene_type",
           "hash",
@@ -1740,6 +1741,9 @@
             "type": "string"
           },
           "name": {
+            "type": "string"
+          },
+          "architecture": {
             "type": "string"
           },
           "size": {
@@ -1777,6 +1781,7 @@
       },
       "GeneWithUsage": {
         "required": [
+          "architecture",
           "gene_set",
           "gene_type",
           "hash",
@@ -1796,6 +1801,9 @@
             "type": "string"
           },
           "name": {
+            "type": "string"
+          },
+          "architecture": {
             "type": "string"
           },
           "size": {
@@ -2287,6 +2295,9 @@
           "environment": {
             "type": "string"
           },
+          "gene": {
+            "$ref": "#/components/schemas/VirtualDiskGeneInfo"
+          },
           "path": {
             "type": "string",
             "nullable": true
@@ -2321,6 +2332,26 @@
             "$ref": "#/components/schemas/CatletDriveType"
           },
           "catlet_id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualDiskGeneInfo": {
+        "required": [
+          "architecture",
+          "gene_set",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "gene_set": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "architecture": {
             "type": "string"
           }
         },
