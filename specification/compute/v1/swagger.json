@@ -2340,15 +2340,15 @@
       "VirtualDiskGeneInfo": {
         "required": [
           "architecture",
-          "gene_name",
-          "gene_set"
+          "gene_set",
+          "name"
         ],
         "type": "object",
         "properties": {
           "gene_set": {
             "type": "string"
           },
-          "gene_name": {
+          "name": {
             "type": "string"
           },
           "architecture": {
