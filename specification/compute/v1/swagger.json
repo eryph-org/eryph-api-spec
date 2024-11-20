@@ -2376,7 +2376,6 @@
         "required": [
           "environment",
           "id",
-          "ip_network",
           "name",
           "project",
           "provider_name"
@@ -2399,7 +2398,8 @@
             "type": "string"
           },
           "ip_network": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
