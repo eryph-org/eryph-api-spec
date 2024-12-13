@@ -1671,6 +1671,7 @@
       },
       "CatletStatus": {
         "enum": [
+          "Unknown",
           "Stopped",
           "Running",
           "Pending",
