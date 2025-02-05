@@ -1035,6 +1035,113 @@
         ]
       }
     },
+    "/v1/catlets/{id}/config/expand": {
+      "post": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Expand catlet config",
+        "description": "Expand the config for an existing catlet",
+        "operationId": "Catlets_ExpandConfig",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpandCatletConfigRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/catlets/config/expand": {
+      "post": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Expand new catlet config",
+        "description": "Expand the config for a new catlet",
+        "operationId": "Catlets_ExpandNewConfig",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpandNewCatletConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/virtualnetworks/{id}": {
       "get": {
         "tags": [
@@ -1096,6 +1203,7 @@
           {
             "name": "log_time_stamp",
             "in": "query",
+            "description": "Filters returned log entries by the requested timestamp",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -1104,6 +1212,7 @@
           {
             "name": "expand",
             "in": "query",
+            "description": "Expand details. Supported details are: logs,resources,projects,tasks",
             "schema": {
               "type": "string"
             }
@@ -1362,6 +1471,7 @@
           {
             "name": "log_time_stamp",
             "in": "query",
+            "description": "Filters returned log entries by the requested timestamp",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -1370,6 +1480,7 @@
           {
             "name": "expand",
             "in": "query",
+            "description": "Expand details. Supported details are: logs,resources,projects,tasks",
             "schema": {
               "type": "string"
             }
@@ -1400,6 +1511,122 @@
         "x-ms-pageable": {
           "nextLinkName": null
         }
+      }
+    },
+    "/v1/virtualnetworks/config/validate": {
+      "post": {
+        "tags": [
+          "Virtual Networks"
+        ],
+        "summary": "Validate virtual networks config",
+        "description": "Performs a quick validation of the virtual networks configuration",
+        "operationId": "VirtualNetworks_ValidateConfig",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateProjectNetworksConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:projects:read"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/catlets/config/validate": {
+      "post": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Validate catlet config",
+        "description": "Performs a quick validation of the catlet configuration",
+        "operationId": "Catlets_ValidateConfig",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuickValidateConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletConfigValidationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletConfigValidationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletConfigValidationResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
+            ]
+          }
+        ]
       }
     },
     "/v1/catlets/{id}/start": {
@@ -1558,6 +1785,38 @@
         },
         "additionalProperties": false
       },
+      "CatletConfigOperationResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OperationResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "configuration": { }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "CatletConfigValidationResult": {
+        "type": "object",
+        "properties": {
+          "is_valid": {
+            "type": "boolean",
+            "description": "Indicates whether the catlet configuration is valid."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationIssue"
+            },
+            "description": "Contains a list of the issues when the configuration is invalid.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CatletConfiguration": {
         "required": [
           "configuration"
@@ -1579,6 +1838,7 @@
           },
           "attached_disk_id": {
             "type": "string",
+            "description": "The ID of the actual virtual disk which is attached.\r\nThis can be null, e.g. when the VHD has been deleted,\r\nbut it is still configured in the virtual machine.",
             "nullable": true
           }
         },
@@ -1685,6 +1945,36 @@
           "Hard"
         ],
         "type": "string"
+      },
+      "ExpandCatletConfigRequestBody": {
+        "required": [
+          "configuration"
+        ],
+        "type": "object",
+        "properties": {
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "configuration": { }
+        },
+        "additionalProperties": false
+      },
+      "ExpandNewCatletConfigRequest": {
+        "required": [
+          "configuration"
+        ],
+        "type": "object",
+        "properties": {
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "configuration": { }
+        },
+        "additionalProperties": false
       },
       "FloatingNetworkPort": {
         "required": [
@@ -1966,6 +2256,9 @@
               "$ref": "#/components/schemas/OperationTask"
             },
             "nullable": true
+          },
+          "result": {
+            "$ref": "#/components/schemas/OperationResult"
           }
         },
         "additionalProperties": false
@@ -2029,6 +2322,24 @@
           }
         },
         "additionalProperties": false
+      },
+      "OperationResult": {
+        "required": [
+          "result_type"
+        ],
+        "type": "object",
+        "properties": {
+          "result_type": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "result_type",
+          "mapping": {
+            "catlet_config": "#/components/schemas/CatletConfigOperationResult"
+          }
+        }
       },
       "OperationStatus": {
         "enum": [
@@ -2209,6 +2520,34 @@
         },
         "additionalProperties": false
       },
+      "ProjectNetworksConfigValidationResult": {
+        "type": "object",
+        "properties": {
+          "is_valid": {
+            "type": "boolean",
+            "description": "Indicates whether the network configuration is valid."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationIssue"
+            },
+            "description": "Contains a list of the issues when the configuration is invalid.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuickValidateConfigRequest": {
+        "required": [
+          "configuration"
+        ],
+        "type": "object",
+        "properties": {
+          "configuration": { }
+        },
+        "additionalProperties": false
+      },
       "ResourceType": {
         "enum": [
           "Catlet",
@@ -2267,6 +2606,31 @@
         },
         "additionalProperties": false
       },
+      "ValidateProjectNetworksConfigRequest": {
+        "type": "object",
+        "properties": {
+          "configuration": { }
+        },
+        "additionalProperties": false
+      },
+      "ValidationIssue": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "member": {
+            "type": "string",
+            "description": "The member of the configuration that has the issue. The value is a\r\nJSON path to the member. It can be null when the\r\nissue is not related to a specific member.",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "The details of the issue."
+          }
+        },
+        "additionalProperties": false
+      },
       "VirtualDisk": {
         "required": [
           "data_store",
@@ -2301,6 +2665,7 @@
           },
           "path": {
             "type": "string",
+            "description": "The file system path of the virtual disk. This information\r\nis only available to administrators.",
             "nullable": true
           },
           "size_bytes": {
@@ -2310,6 +2675,7 @@
           },
           "parent_id": {
             "type": "string",
+            "description": "The ID of the parent disk when this disk is a differential disk.",
             "nullable": true
           },
           "attached_catlets": {
