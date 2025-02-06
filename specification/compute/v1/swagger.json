@@ -1513,122 +1513,6 @@
         }
       }
     },
-    "/v1/virtualnetworks/config/validate": {
-      "post": {
-        "tags": [
-          "Virtual Networks"
-        ],
-        "summary": "Validate virtual networks config",
-        "description": "Performs a quick validation of the virtual networks configuration",
-        "operationId": "VirtualNetworks_ValidateConfig",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ValidateProjectNetworksConfigRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response describing why the request failed",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "compute:projects:read"
-            ]
-          }
-        ]
-      }
-    },
-    "/v1/catlets/config/validate": {
-      "post": {
-        "tags": [
-          "Catlets"
-        ],
-        "summary": "Validate catlet config",
-        "description": "Performs a quick validation of the catlet configuration",
-        "operationId": "Catlets_ValidateConfig",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QuickValidateConfigRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CatletConfigValidationResult"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CatletConfigValidationResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CatletConfigValidationResult"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response describing why the request failed",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "compute:catlets:read"
-            ]
-          }
-        ]
-      }
-    },
     "/v1/catlets/{id}/start": {
       "put": {
         "tags": [
@@ -1732,6 +1616,122 @@
           {
             "oauth2": [
               "compute:catlets:control"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/virtualnetworks/config/validate": {
+      "post": {
+        "tags": [
+          "Virtual Networks"
+        ],
+        "summary": "Validate virtual networks config",
+        "description": "Performs a quick validation of the virtual networks configuration",
+        "operationId": "VirtualNetworks_ValidateConfig",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateProjectNetworksConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:projects:read"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/catlets/config/validate": {
+      "post": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Validate catlet config",
+        "description": "Performs a quick validation of the catlet configuration",
+        "operationId": "Catlets_ValidateConfig",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletConfigValidationResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletConfigValidationResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletConfigValidationResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
             ]
           }
         ]
@@ -2538,16 +2538,6 @@
         },
         "additionalProperties": false
       },
-      "QuickValidateConfigRequest": {
-        "required": [
-          "configuration"
-        ],
-        "type": "object",
-        "properties": {
-          "configuration": { }
-        },
-        "additionalProperties": false
-      },
       "ResourceType": {
         "enum": [
           "Catlet",
@@ -2602,6 +2592,16 @@
             "format": "uuid",
             "nullable": true
           },
+          "configuration": { }
+        },
+        "additionalProperties": false
+      },
+      "ValidateConfigRequest": {
+        "required": [
+          "configuration"
+        ],
+        "type": "object",
+        "properties": {
           "configuration": { }
         },
         "additionalProperties": false
