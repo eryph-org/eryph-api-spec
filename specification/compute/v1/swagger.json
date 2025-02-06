@@ -1621,64 +1621,6 @@
         ]
       }
     },
-    "/v1/virtualnetworks/config/validate": {
-      "post": {
-        "tags": [
-          "Virtual Networks"
-        ],
-        "summary": "Validate virtual networks config",
-        "description": "Performs a quick validation of the virtual networks configuration",
-        "operationId": "VirtualNetworks_ValidateConfig",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ValidateProjectNetworksConfigRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectNetworksConfigValidationResult"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response describing why the request failed",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "compute:projects:read"
-            ]
-          }
-        ]
-      }
-    },
     "/v1/catlets/config/validate": {
       "post": {
         "tags": [
@@ -2520,24 +2462,6 @@
         },
         "additionalProperties": false
       },
-      "ProjectNetworksConfigValidationResult": {
-        "type": "object",
-        "properties": {
-          "is_valid": {
-            "type": "boolean",
-            "description": "Indicates whether the network configuration is valid."
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ValidationIssue"
-            },
-            "description": "Contains a list of the issues when the configuration is invalid.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "ResourceType": {
         "enum": [
           "Catlet",
@@ -2600,13 +2524,6 @@
         "required": [
           "configuration"
         ],
-        "type": "object",
-        "properties": {
-          "configuration": { }
-        },
-        "additionalProperties": false
-      },
-      "ValidateProjectNetworksConfigRequest": {
         "type": "object",
         "properties": {
           "configuration": { }
