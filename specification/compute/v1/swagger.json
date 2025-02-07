@@ -1733,6 +1733,9 @@
             "$ref": "#/components/schemas/OperationResult"
           },
           {
+            "required": [
+              "configuration"
+            ],
             "type": "object",
             "properties": {
               "configuration": { }
@@ -1742,6 +1745,9 @@
         ]
       },
       "CatletConfigValidationResult": {
+        "required": [
+          "is_valid"
+        ],
         "type": "object",
         "properties": {
           "is_valid": {
@@ -2279,7 +2285,7 @@
         "discriminator": {
           "propertyName": "result_type",
           "mapping": {
-            "catlet_config": "#/components/schemas/CatletConfigOperationResult"
+            "CatletConfig": "#/components/schemas/CatletConfigOperationResult"
           }
         }
       },
@@ -2538,7 +2544,7 @@
         "properties": {
           "member": {
             "type": "string",
-            "description": "The member of the configuration that has the issue. The value is a\r\nJSON path to the member. It can be null when the\r\nissue is not related to a specific member.",
+            "description": "The JSON path which identifies the member which has the issue.\r\nCan be null when the issue is not related to\r\na specific member.",
             "nullable": true
           },
           "message": {
