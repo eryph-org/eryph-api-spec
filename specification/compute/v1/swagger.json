@@ -1905,7 +1905,11 @@
             "format": "uuid",
             "nullable": true
           },
-          "configuration": { }
+          "configuration": { },
+          "show_secrets": {
+            "type": "boolean",
+            "nullable": true
+          }
         },
         "additionalProperties": false
       },
@@ -1920,7 +1924,11 @@
             "format": "uuid",
             "nullable": true
           },
-          "configuration": { }
+          "configuration": { },
+          "show_secrets": {
+            "type": "boolean",
+            "nullable": true
+          }
         },
         "additionalProperties": false
       },
