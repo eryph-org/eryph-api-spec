@@ -1228,19 +1228,9 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Operation"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Operation"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Operation"
                 }
@@ -1640,19 +1630,9 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CatletConfigValidationResult"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CatletConfigValidationResult"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CatletConfigValidationResult"
                 }
