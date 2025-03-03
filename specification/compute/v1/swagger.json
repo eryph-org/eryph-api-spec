@@ -1503,6 +1503,54 @@
         }
       }
     },
+    "/v1/catlets/config/populate-variables": {
+      "post": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Populate catlet config variables",
+        "description": "Populates the variables in a config for a new catlet based on the parent.",
+        "operationId": "Catlets_PopulateConfigVariables",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PopulateCatletConfigVariablesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/catlets/{id}/start": {
       "put": {
         "tags": [
@@ -2350,6 +2398,21 @@
           "Completed"
         ],
         "type": "string"
+      },
+      "PopulateCatletConfigVariablesRequest": {
+        "required": [
+          "configuration"
+        ],
+        "type": "object",
+        "properties": {
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "configuration": { }
+        },
+        "additionalProperties": false
       },
       "ProblemDetails": {
         "type": "object",
