@@ -1985,7 +1985,8 @@
       "CatletStopMode": {
         "enum": [
           "Shutdown",
-          "Hard"
+          "Hard",
+          "Kill"
         ],
         "type": "string"
       },
