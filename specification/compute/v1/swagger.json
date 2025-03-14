@@ -1715,7 +1715,8 @@
           "id",
           "name",
           "project",
-          "status"
+          "status",
+          "vm_id"
         ],
         "type": "object",
         "properties": {
@@ -1724,6 +1725,10 @@
           },
           "name": {
             "type": "string"
+          },
+          "vm_id": {
+            "type": "string",
+            "description": "The ID of the corresponding Hyper-V virtual machine."
           },
           "project": {
             "$ref": "#/components/schemas/Project"
