@@ -1927,6 +1927,13 @@
         ],
         "type": "string"
       },
+      "DiskStatus": {
+        "enum": [
+          "Ok",
+          "Error"
+        ],
+        "type": "string"
+      },
       "ExpandCatletConfigRequestBody": {
         "required": [
           "configuration"
@@ -2617,7 +2624,8 @@
           "id",
           "location",
           "name",
-          "project"
+          "project",
+          "status"
         ],
         "type": "object",
         "properties": {
@@ -2639,6 +2647,9 @@
           "environment": {
             "type": "string"
           },
+          "status": {
+            "$ref": "#/components/schemas/DiskStatus"
+          },
           "gene": {
             "$ref": "#/components/schemas/VirtualDiskGeneInfo"
           },
@@ -2655,6 +2666,11 @@
           "parent_id": {
             "type": "string",
             "description": "The ID of the parent disk when this disk is a differential disk.",
+            "nullable": true
+          },
+          "parent_path": {
+            "type": "string",
+            "description": "The file system path of the virtual disk's parent. This information\r\nis only available to administrators. The ParentPath might be populated\r\neven if the ParentId is missing. In this case, the disk chain is corrupted.",
             "nullable": true
           },
           "attached_catlets": {
