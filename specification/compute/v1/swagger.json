@@ -1298,7 +1298,7 @@
           "Version"
         ],
         "summary": "Get the API version",
-        "description": "Gets the API version which can be used by clients for compatibility checks. This endpoint has been added with eryph v0.3.",
+        "description": "Gets the API version which can be used by clients for compatibility checks. This endpoint was added with eryph v0.3.",
         "operationId": "Version_Get",
         "responses": {
           "200": {
