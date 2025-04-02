@@ -1292,6 +1292,38 @@
         }
       }
     },
+    "/v1/version": {
+      "get": {
+        "tags": [
+          "Version"
+        ],
+        "summary": "Get the API version",
+        "description": "Gets the API version which can be used by clients for compatibility checks. This endpoint was added with eryph v0.3.",
+        "operationId": "Version_Get",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiVersionResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/projects/{project_id}/virtualnetworks/config": {
       "get": {
         "tags": [
@@ -1710,6 +1742,36 @@
   },
   "components": {
     "schemas": {
+      "ApiVersion": {
+        "required": [
+          "major",
+          "minor"
+        ],
+        "type": "object",
+        "properties": {
+          "major": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minor": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiVersionResponse": {
+        "required": [
+          "latest_version"
+        ],
+        "type": "object",
+        "properties": {
+          "latest_version": {
+            "$ref": "#/components/schemas/ApiVersion"
+          }
+        },
+        "additionalProperties": false
+      },
       "Catlet": {
         "required": [
           "id",
