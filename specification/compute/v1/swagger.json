@@ -1789,6 +1789,7 @@
       "Catlet": {
         "required": [
           "id",
+          "is_deprecated",
           "name",
           "project",
           "status",
@@ -1811,6 +1812,10 @@
           },
           "status": {
             "$ref": "#/components/schemas/CatletStatus"
+          },
+          "is_deprecated": {
+            "type": "boolean",
+            "description": "Indicates that the catlet has been created with an old\r\nversion of eryph and is missing some metadata. Hence,\r\nit cannot be edited and its configuration cannot be inspected."
           },
           "networks": {
             "type": "array",
@@ -1876,11 +1881,17 @@
       },
       "CatletConfiguration": {
         "required": [
-          "configuration"
+          "config_yaml",
+          "configuration",
+          "deployed_config"
         ],
         "type": "object",
         "properties": {
-          "configuration": { }
+          "configuration": { },
+          "deployed_config": { },
+          "config_yaml": {
+            "type": "string"
+          }
         },
         "additionalProperties": false
       },
@@ -1903,11 +1914,11 @@
       },
       "CatletDriveType": {
         "enum": [
-          "VHD",
-          "SharedVHD",
-          "PHD",
-          "DVD",
-          "VHDSet"
+          "Vhd",
+          "SharedVhd",
+          "Phd",
+          "Dvd",
+          "VhdSet"
         ],
         "type": "string"
       },
@@ -1992,7 +2003,8 @@
           "Stopped",
           "Running",
           "Pending",
-          "Error"
+          "Error",
+          "Missing"
         ],
         "type": "string"
       },
