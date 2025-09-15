@@ -975,7 +975,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
+            ]
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -1289,7 +1296,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
+            ]
+          }
+        ]
       }
     },
     "/v1/version": {
