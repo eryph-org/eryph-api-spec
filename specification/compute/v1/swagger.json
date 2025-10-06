@@ -1042,65 +1042,6 @@
         ]
       }
     },
-    "/v1/catlets/{id}/config/expand": {
-      "post": {
-        "tags": [
-          "Catlets"
-        ],
-        "summary": "Expand catlet config",
-        "description": "Expand the config for an existing catlet",
-        "operationId": "Catlets_ExpandConfig",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExpandCatletConfigRequestBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "202": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Operation"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response describing why the request failed",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "compute:catlets:write"
-            ]
-          }
-        ]
-      }
-    },
     "/v1/catlets/config/expand": {
       "post": {
         "tags": [
@@ -1789,6 +1730,7 @@
       "Catlet": {
         "required": [
           "id",
+          "is_deprecated",
           "name",
           "project",
           "status",
@@ -1811,6 +1753,10 @@
           },
           "status": {
             "$ref": "#/components/schemas/CatletStatus"
+          },
+          "is_deprecated": {
+            "type": "boolean",
+            "description": "Indicates that the catlet has been created with an old\r\nversion of eryph and is missing some metadata. Hence,\r\nit cannot be edited and its configuration cannot be inspected."
           },
           "networks": {
             "type": "array",
@@ -1903,11 +1849,11 @@
       },
       "CatletDriveType": {
         "enum": [
-          "VHD",
-          "SharedVHD",
-          "PHD",
-          "DVD",
-          "VHDSet"
+          "Vhd",
+          "SharedVhd",
+          "Phd",
+          "Dvd",
+          "VhdSet"
         ],
         "type": "string"
       },
@@ -1992,7 +1938,8 @@
           "Stopped",
           "Running",
           "Pending",
-          "Error"
+          "Error",
+          "Missing"
         ],
         "type": "string"
       },
@@ -2010,25 +1957,6 @@
           "Error"
         ],
         "type": "string"
-      },
-      "ExpandCatletConfigRequestBody": {
-        "required": [
-          "configuration"
-        ],
-        "type": "object",
-        "properties": {
-          "correlation_id": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
-          },
-          "configuration": { },
-          "show_secrets": {
-            "type": "boolean",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "ExpandNewCatletConfigRequest": {
         "required": [
