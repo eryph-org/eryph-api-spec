@@ -489,6 +489,54 @@
         }
       }
     },
+    "/v1/catlet_specifications": {
+      "post": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "Create a new catlet specification",
+        "description": "Create a new catlet specification",
+        "operationId": "CatletSpecifications_Create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCatletSpecificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/virtualdisks/{id}": {
       "delete": {
         "tags": [
@@ -2137,6 +2185,32 @@
         },
         "additionalProperties": false
       },
+      "NewCatletSpecificationRequest": {
+        "required": [
+          "configuration",
+          "name",
+          "project_id"
+        ],
+        "type": "object",
+        "properties": {
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "NewProjectMemberBody": {
         "required": [
           "member_id",
@@ -2539,6 +2613,7 @@
       "ResourceType": {
         "enum": [
           "Catlet",
+          "CatletSpecification",
           "VirtualDisk",
           "VirtualNetwork",
           "CatletFarm"
