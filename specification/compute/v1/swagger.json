@@ -535,6 +535,55 @@
             ]
           }
         ]
+      },
+      "get": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "List all catlet specifications",
+        "description": "List all catlet specifications",
+        "operationId": "CatletSpecifications_List",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletSpecificationList"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
+            ]
+          }
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": null
+        }
       }
     },
     "/v1/virtualdisks/{id}": {
@@ -1090,6 +1139,218 @@
         ]
       }
     },
+    "/v1/catlet_specifications/{id}": {
+      "delete": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "Delete a catlet specification",
+        "description": "Deletes a catlet specification",
+        "operationId": "CatletSpecifications_Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "Get a catlet specification",
+        "description": "Get a catlet specification",
+        "operationId": "CatletSpecifications_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletSpecification"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "Update a catlet specification",
+        "description": "Update a catlet specification",
+        "operationId": "CatletSpecifications_Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCatletSpecificationRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/catlet_specifications/{id}/deploy": {
+      "put": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "Deploy a catlet specification",
+        "description": "Deploy a catlet specification",
+        "operationId": "CatletSpecifications_Deploy",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeployCatletSpecificationRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/catlets/config/expand": {
       "post": {
         "tags": [
@@ -1327,6 +1588,73 @@
         }
       }
     },
+    "/catlet_specifications/{specification_id}/versions/{id}": {
+      "get": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "Get a catlet specification version",
+        "description": "Get a catlet specification version",
+        "operationId": "CatletSpecifications_GetVersion",
+        "parameters": [
+          {
+            "name": "specification_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "description": "The requested API version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletSpecificationVersion"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/projects/{project_id}/virtualnetworks/config": {
       "get": {
         "tags": [
@@ -1538,6 +1866,68 @@
         }
       }
     },
+    "/catlet_specifications/{specification_id}/versions": {
+      "get": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "List all catlet specification versions",
+        "description": "List all catlet specification versions",
+        "operationId": "CatletSpecifications_ListVersions",
+        "parameters": [
+          {
+            "name": "specification_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "description": "The requested API version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatletSpecificationVersionInfoList"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
+            ]
+          }
+        ],
+        "x-ms-pageable": {
+          "nextLinkName": null
+        }
+      }
+    },
     "/v1/catlets/config/populate-variables": {
       "post": {
         "tags": [
@@ -1694,6 +2084,54 @@
         ]
       }
     },
+    "/v1/catlet_specifications/validate": {
+      "post": {
+        "tags": [
+          "Catlet Specifications"
+        ],
+        "summary": "Validate a catlet specification",
+        "description": "Validates a catlet specification",
+        "operationId": "CatletSpecifications_Validate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateSpecificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/catlets/config/validate": {
       "post": {
         "tags": [
@@ -1826,6 +2264,9 @@
               "$ref": "#/components/schemas/CatletDrive"
             },
             "nullable": true
+          },
+          "specification": {
+            "$ref": "#/components/schemas/CatletSpecificationInfo"
           }
         },
         "additionalProperties": false
@@ -1980,6 +2421,157 @@
         },
         "additionalProperties": false
       },
+      "CatletSpecification": {
+        "required": [
+          "architecture",
+          "id",
+          "latest",
+          "name",
+          "project"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "architecture": {
+            "type": "string"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "latest": {
+            "$ref": "#/components/schemas/CatletSpecificationVersionInfo"
+          },
+          "catlet_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatletSpecificationInfo": {
+        "required": [
+          "specification_id",
+          "specification_version_id"
+        ],
+        "type": "object",
+        "properties": {
+          "specification_id": {
+            "type": "string"
+          },
+          "specification_version_id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatletSpecificationList": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatletSpecification"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatletSpecificationOperationResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OperationResult"
+          },
+          {
+            "required": [
+              "configuration",
+              "genes"
+            ],
+            "type": "object",
+            "properties": {
+              "configuration": { },
+              "genes": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "CatletSpecificationVersion": {
+        "required": [
+          "configuration",
+          "id",
+          "resolved_config",
+          "specification_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "specification_id": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "configuration": {
+            "type": "string"
+          },
+          "resolved_config": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatletSpecificationVersionInfo": {
+        "required": [
+          "created_at",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatletSpecificationVersionInfoList": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatletSpecificationVersionInfo"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
       "CatletStatus": {
         "enum": [
           "Unknown",
@@ -1998,6 +2590,21 @@
           "Kill"
         ],
         "type": "string"
+      },
+      "DeployCatletSpecificationRequestBody": {
+        "required": [
+          "variables"
+        ],
+        "type": "object",
+        "properties": {
+          "variables": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
       },
       "DiskStatus": {
         "enum": [
@@ -2204,6 +2811,10 @@
           },
           "name": {
             "type": "string"
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
           },
           "configuration": {
             "type": "string"
@@ -2412,7 +3023,8 @@
         "discriminator": {
           "propertyName": "result_type",
           "mapping": {
-            "CatletConfig": "#/components/schemas/CatletConfigOperationResult"
+            "CatletConfig": "#/components/schemas/CatletConfigOperationResult",
+            "CatletSpecification": "#/components/schemas/CatletSpecificationOperationResult"
           }
         }
       },
@@ -2654,6 +3266,31 @@
         },
         "additionalProperties": false
       },
+      "UpdateCatletSpecificationRequestBody": {
+        "required": [
+          "configuration"
+        ],
+        "type": "object",
+        "properties": {
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "configuration": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateProjectNetworksRequestBody": {
         "required": [
           "configuration"
@@ -2676,6 +3313,23 @@
         "type": "object",
         "properties": {
           "configuration": { }
+        },
+        "additionalProperties": false
+      },
+      "ValidateSpecificationRequest": {
+        "required": [
+          "configuration"
+        ],
+        "type": "object",
+        "properties": {
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "configuration": {
+            "type": "string"
+          }
         },
         "additionalProperties": false
       },
