@@ -1292,8 +1292,8 @@
         ]
       }
     },
-    "/v1/catlet_specifications/{id}/deploy": {
-      "put": {
+    "/catlet_specifications/{specification_id}/versions/{id}/deploy": {
+      "post": {
         "tags": [
           "Catlet Specifications"
         ],
@@ -1302,11 +1302,29 @@
         "operationId": "CatletSpecifications_Deploy",
         "parameters": [
           {
+            "name": "specification_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "description": "The requested API version",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1.0"
             }
           }
         ],
@@ -1588,7 +1606,7 @@
         }
       }
     },
-    "/catlet_specifications/{specification_id}/versions/{id}": {
+    "/v1/catlet_specifications/{specification_id}/versions/{id}": {
       "get": {
         "tags": [
           "Catlet Specifications"
@@ -1611,16 +1629,6 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "api-version",
-            "in": "query",
-            "description": "The requested API version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "default": "1.0"
             }
           }
         ],
@@ -1866,7 +1874,7 @@
         }
       }
     },
-    "/catlet_specifications/{specification_id}/versions": {
+    "/v1/catlet_specifications/{specification_id}/versions": {
       "get": {
         "tags": [
           "Catlet Specifications"
@@ -1881,16 +1889,6 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "api-version",
-            "in": "query",
-            "description": "The requested API version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "default": "1.0"
             }
           }
         ],
@@ -2421,6 +2419,25 @@
         },
         "additionalProperties": false
       },
+      "CatletOperationResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OperationResult"
+          },
+          {
+            "required": [
+              "catlet_id"
+            ],
+            "type": "object",
+            "properties": {
+              "catlet_id": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
       "CatletSpecification": {
         "required": [
           "architecture",
@@ -2449,6 +2466,24 @@
           "catlet_id": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatletSpecificationConfig": {
+        "required": [
+          "content",
+          "content_type"
+        ],
+        "type": "object",
+        "properties": {
+          "content_type": {
+            "type": "string",
+            "description": "The content type of the configuration.\r\nCan be `application/json` or `application/yaml`."
+          },
+          "content": {
+            "type": "string",
+            "description": "The content of the configuration."
           }
         },
         "additionalProperties": false
@@ -2512,8 +2547,8 @@
         "required": [
           "configuration",
           "id",
-          "resolved_config",
-          "specification_id"
+          "specification_id",
+          "variants"
         ],
         "type": "object",
         "properties": {
@@ -2528,10 +2563,14 @@
             "nullable": true
           },
           "configuration": {
-            "type": "string"
+            "$ref": "#/components/schemas/CatletSpecificationConfig"
           },
-          "resolved_config": {
-            "type": "string"
+          "variants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatletSpecificationVersionVariant"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2572,6 +2611,56 @@
         },
         "additionalProperties": false
       },
+      "CatletSpecificationVersionVariant": {
+        "required": [
+          "architecture",
+          "built_config",
+          "pinned_genes"
+        ],
+        "type": "object",
+        "properties": {
+          "architecture": {
+            "type": "string"
+          },
+          "built_config": { },
+          "pinned_genes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatletSpecificationVersionVariantGene"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CatletSpecificationVersionVariantGene": {
+        "required": [
+          "architecture",
+          "gene_set",
+          "gene_type",
+          "hash",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "gene_type": {
+            "$ref": "#/components/schemas/GeneType"
+          },
+          "gene_set": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "architecture": {
+            "type": "string"
+          },
+          "hash": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "CatletStatus": {
         "enum": [
           "Unknown",
@@ -2597,6 +2686,14 @@
         ],
         "type": "object",
         "properties": {
+          "architecture": {
+            "type": "string",
+            "nullable": true
+          },
+          "redeploy": {
+            "type": "boolean",
+            "nullable": true
+          },
           "variables": {
             "type": "object",
             "additionalProperties": {
@@ -2795,7 +2892,6 @@
       "NewCatletSpecificationRequest": {
         "required": [
           "configuration",
-          "name",
           "project_id"
         ],
         "type": "object",
@@ -2809,15 +2905,19 @@
             "type": "string",
             "format": "uuid"
           },
-          "name": {
-            "type": "string"
-          },
           "comment": {
             "type": "string",
             "nullable": true
           },
           "configuration": {
-            "type": "string"
+            "$ref": "#/components/schemas/CatletSpecificationConfig"
+          },
+          "architectures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3023,6 +3123,7 @@
         "discriminator": {
           "propertyName": "result_type",
           "mapping": {
+            "Catlet": "#/components/schemas/CatletOperationResult",
             "CatletConfig": "#/components/schemas/CatletConfigOperationResult",
             "CatletSpecification": "#/components/schemas/CatletSpecificationOperationResult"
           }
@@ -3281,12 +3382,15 @@
             "type": "string",
             "nullable": true
           },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
           "configuration": {
-            "type": "string"
+            "$ref": "#/components/schemas/CatletSpecificationConfig"
+          },
+          "architectures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3328,7 +3432,14 @@
             "nullable": true
           },
           "configuration": {
-            "type": "string"
+            "$ref": "#/components/schemas/CatletSpecificationConfig"
+          },
+          "architectures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
