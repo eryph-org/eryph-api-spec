@@ -1157,6 +1157,16 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCatletSpecificationRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "202": {
             "description": "Success",
@@ -1292,7 +1302,7 @@
         ]
       }
     },
-    "/catlet_specifications/{specification_id}/versions/{id}/deploy": {
+    "/v1/catlet_specifications/{specification_id}/versions/{id}/deploy": {
       "post": {
         "tags": [
           "Catlet Specifications"
@@ -1315,16 +1325,6 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "api-version",
-            "in": "query",
-            "description": "The requested API version",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "default": "1.0"
             }
           }
         ],
@@ -2679,6 +2679,16 @@
           "Kill"
         ],
         "type": "string"
+      },
+      "DeleteCatletSpecificationRequestBody": {
+        "type": "object",
+        "properties": {
+          "delete_catlet": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "DeployCatletSpecificationRequestBody": {
         "required": [
