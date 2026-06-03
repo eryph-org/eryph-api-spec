@@ -15,10 +15,116 @@
   },
   "servers": [
     {
-      "url": "https://localhost:8000/compute"
+      "url": "https://localhost:56865/compute"
     }
   ],
   "paths": {
+    "/v1/catlets/{id}/guest-services/access-keys": {
+      "post": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Authorize a guest-services access key on a catlet",
+        "description": "Starts an operation that authorizes the caller's SSH public key in the catlet's guest services so it can be used to connect the SSH channel.",
+        "operationId": "Catlets_AddAccessKey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAccessKeyRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:remote-access"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Revoke the caller's guest-services access key on a catlet",
+        "description": "Starts an operation that removes the caller's authorized SSH key from the catlet's guest.",
+        "operationId": "Catlets_RemoveAccessKey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:remote-access"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/genes": {
       "delete": {
         "tags": [
@@ -1369,6 +1475,65 @@
         ]
       }
     },
+    "/v1/catlets/{id}/config/expand": {
+      "post": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Expand catlet config",
+        "description": "Expand the supplied config in the context of an existing catlet. Deprecated: existing catlet state is no longer factored into the expansion; the supplied config is expanded as if for a new catlet. Retained for compatibility with Eryph.ComputeClient v0.12 / v0.13 (`Test-Catlet -Id`). New clients should use POST /catlets/config/expand.",
+        "operationId": "Catlets_ExpandConfig",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpandCatletConfigRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/catlets/config/expand": {
       "post": {
         "tags": [
@@ -1550,6 +1715,55 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CatletConfiguration"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:read"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/catlets/{id}/guest-services": {
+      "get": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Get the guest services of a catlet",
+        "description": "Starts an operation that reads the catlet guest's services state: the agent status and version, the provisioning state and the current shell. Track the returned operation; its result carries the state.",
+        "operationId": "Catlets_GetGuestServices",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
                 }
               }
             }
@@ -1926,6 +2140,121 @@
         }
       }
     },
+    "/v1/catlets/{id}/guest-services/ssh-channel": {
+      "put": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Open an SSH channel to a catlet",
+        "description": "Starts an operation that prepares a one-time SSH channel to the catlet's guest services. Track the returned operation; its result carries the channel token. Then connect the data-plane WebSocket at catlets/{id}/ssh-channel/connect with that token.",
+        "operationId": "Catlets_OpenSshChannel",
+        "parameters": [
+          {
+            "name": "publicKey",
+            "in": "query",
+            "description": "Optional operator public key (OpenSSH authorized_keys form) to authorize in the guest. When\r\nomitted, no key is written (the pre-injected-key flow).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ttl",
+            "in": "query",
+            "description": "Optional time-to-live in seconds for the injected key. Only applies when\r\nEryph.Modules.ComputeApi.Endpoints.V1.Catlets.OpenSshChannelRequest.PublicKey is supplied.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:remote-access"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/catlets/{id}/guest-services/ssh-channel/connect": {
+      "get": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Connect the SSH channel data plane",
+        "description": "WebSocket endpoint that reverse-proxies an SSH channel to a catlet's guest services. Requires the one-time token from a completed OpenSshChannel operation.",
+        "operationId": "Catlets_ConnectSshChannel",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:remote-access"
+            ]
+          }
+        ]
+      }
+    },
     "/v1/catlets/config/populate-variables": {
       "post": {
         "tags": [
@@ -1969,6 +2298,65 @@
           {
             "oauth2": [
               "compute:catlets:write"
+            ]
+          }
+        ]
+      }
+    },
+    "/v1/catlets/{id}/guest-services/settings": {
+      "patch": {
+        "tags": [
+          "Catlets"
+        ],
+        "summary": "Update the guest services settings of a catlet",
+        "description": "Starts an operation that updates the catlet's guest-services settings (the SSH session shell). A null field is left unchanged; an empty field clears the override.",
+        "operationId": "Catlets_SetGuestServicesSettings",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GuestServicesSettingsBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the request failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "compute:catlets:remote-access"
             ]
           }
         ]
@@ -2181,6 +2569,30 @@
   },
   "components": {
     "schemas": {
+      "AddAccessKeyRequestBody": {
+        "required": [
+          "public_key"
+        ],
+        "type": "object",
+        "properties": {
+          "public_key": {
+            "type": "string",
+            "description": "The operator's SSH public key in OpenSSH authorized_keys form."
+          },
+          "ttl": {
+            "type": "string",
+            "description": "Optional ISO 8601 duration (informational); the server applies Eryph.Modules.ComputeApi.Endpoints.V1.Catlets.AddAccessKeyRequestBody.ExpiresAt.",
+            "nullable": true
+          },
+          "expires_at": {
+            "type": "string",
+            "description": "When the key should stop authorizing. Null = no expiry.",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ApiVersion": {
         "required": [
           "major",
@@ -2720,6 +3132,25 @@
         ],
         "type": "string"
       },
+      "ExpandCatletConfigRequestBody": {
+        "required": [
+          "configuration"
+        ],
+        "type": "object",
+        "properties": {
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "configuration": { },
+          "show_secrets": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ExpandNewCatletConfigRequest": {
         "required": [
           "configuration"
@@ -2883,6 +3314,51 @@
           }
         },
         "additionalProperties": false
+      },
+      "GuestServicesSettingsBody": {
+        "type": "object",
+        "properties": {
+          "shell": {
+            "type": "string",
+            "description": "Shell command for interactive SSH sessions. Null leaves it unchanged, an\r\nempty string clears the override, any other value sets it.",
+            "nullable": true
+          },
+          "shell_args": {
+            "type": "string",
+            "description": "Arguments for the shell command. Same null/empty/value semantics as\r\nEryph.Modules.ComputeApi.Endpoints.V1.Catlets.GuestServicesSettingsBody.Shell.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GuestServicesStatusOperationResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OperationResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "guest_services_status": {
+                "type": "string",
+                "nullable": true
+              },
+              "guest_services_version": {
+                "type": "string",
+                "nullable": true
+              },
+              "provisioning_state": {
+                "type": "string",
+                "nullable": true
+              },
+              "shell": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
       },
       "NewCatletRequest": {
         "required": [
@@ -3135,7 +3611,9 @@
           "mapping": {
             "Catlet": "#/components/schemas/CatletOperationResult",
             "CatletConfig": "#/components/schemas/CatletConfigOperationResult",
-            "CatletSpecification": "#/components/schemas/CatletSpecificationOperationResult"
+            "CatletSpecification": "#/components/schemas/CatletSpecificationOperationResult",
+            "SshChannel": "#/components/schemas/SshChannelOperationResult",
+            "GuestServicesStatus": "#/components/schemas/GuestServicesStatusOperationResult"
           }
         }
       },
@@ -3342,6 +3820,30 @@
           "CatletFarm"
         ],
         "type": "string"
+      },
+      "SshChannelOperationResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OperationResult"
+          },
+          {
+            "required": [
+              "expires_at",
+              "token"
+            ],
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string"
+              },
+              "expires_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
       },
       "StopCatletRequestBody": {
         "required": [
@@ -3653,13 +4155,14 @@
         "description": "Eryph only supports the client credentials flow. Depending\r\non the client, you can use either the client secret or a\r\nclient assertion with type\r\n`urn:ietf:params:oauth:client-assertion-type:jwt-bearer`.",
         "flows": {
           "clientCredentials": {
-            "tokenUrl": "https://localhost:8000/identity/connect/token",
+            "tokenUrl": "https://localhost:56865/identity/connect/token",
             "scopes": {
               "compute:read": "Grants read access to the compute API",
               "compute:write": "Grants write access to the compute API",
               "compute:catlets:read": "Grants read access for catlets",
               "compute:catlets:write": "Grants write access for catlets",
               "compute:catlets:control": "Grants control access (start, stop) for catlets",
+              "compute:catlets:remote-access": "Grants remote SSH channel access for catlets",
               "compute:genes:read": "Grants read access for genes",
               "compute:genes:write": "Grants write access for genes",
               "compute:projects:read": "Grants read access for projects",
